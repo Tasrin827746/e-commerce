@@ -1,4 +1,4 @@
-
+// src/app/(pages)/articles/[slug]/page.tsx
 
 import { notFound } from "next/navigation";
 
@@ -37,6 +37,12 @@ const blogData: BlogCardProps[] = [
     content: "Let’s explore the top picks for professional yet stylish office attire...",
   },
 ];
+
+export async function generateStaticParams() {
+  return blogData.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 interface PageProps {
   params: {
