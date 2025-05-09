@@ -1,16 +1,14 @@
-import BlogCard from '@/components/Home/Blog'
-import Category from '@/components/Home/Category'
-import Review from '@/components/Our-Story/Review';
+
+import { notFound } from "next/navigation";
 
 export type BlogCardProps = {
-    slug: string;
-    category: string;
-    date: string;
-    title: string;
-    description: string;
-    content?: string;
-  };
-  
+  slug: string;
+  category: string;
+  date: string;
+  title: string;
+  description: string;
+  content?: string;
+};
 
 const blogData: BlogCardProps[] = [
   {
@@ -39,30 +37,31 @@ const blogData: BlogCardProps[] = [
   },
 ];
 
-
-const page = () => {
-  return (
-   <>
-   <Category />
-   <section className="py-12 px-6">
-        <h4 className="uppercase text-sm tracking-wide text-gray-500 mb-2">⌘ OUR BLOGS</h4>
-        <h2 className="text-4xl font-bold mb-8">Latest Articles</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {blogData.map((post) => (
-            <BlogCard
-              key={post.slug}
-              slug={post.slug}
-              category={post.category}
-              date={post.date}
-              title={post.title}
-              description={post.description}
-            />
-          ))}
-        </div>
-      </section>
-      <Review />
-   </>
-  )
+export async function generateStaticParams() {
+  return blogData.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-export default page
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default function BlogPost({ params }: PageProps) {
+  const post = blogData.find((item) => item.slug === params.slug);
+
+  if (!post) return notFound();
+
+  return (
+    <main className="max-w-3xl mx-auto px-6 py-16">
+      <p className="text-sm text-gray-500 mb-2">
+        {post.category} • {post.date}
+      </p>
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <p className="text-lg text-gray-700 mb-8">{post.description}</p>
+      <div className="text-gray-800 leading-relaxed">{post.content}</div>
+    </main>
+  );
+}
