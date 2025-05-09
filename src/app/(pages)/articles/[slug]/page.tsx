@@ -1,5 +1,14 @@
 import { notFound } from "next/navigation";
-import { BlogCardProps } from "@/types/blog";
+
+export type BlogCardProps = {
+    slug: string;
+    category: string;
+    date: string;
+    title: string;
+    description: string;
+    content?: string;
+  };
+  
 
 const blogData: BlogCardProps[] = [
   {

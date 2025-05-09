@@ -1,7 +1,16 @@
 import BlogCard from '@/components/Home/Blog'
 import Category from '@/components/Home/Category'
 import Review from '@/components/Our-Story/Review';
-import { BlogCardProps } from "@/types/blog";
+
+export type BlogCardProps = {
+    slug: string;
+    category: string;
+    date: string;
+    title: string;
+    description: string;
+    content?: string;
+  };
+  
 
 const blogData: BlogCardProps[] = [
   {
