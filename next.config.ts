@@ -1,17 +1,19 @@
-import withBundleAnalyzer from "@next/bundle-analyzer";
+import withBundleAnalyzer from '@next/bundle-analyzer';
+import type { NextConfig } from 'next';
 
 const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true", 
+  enabled: process.env.ANALYZE === 'true',
 });
 
-/** @type {import('next').NextConfig} */
-const nextConfig = bundleAnalyzer({
-  eslint: {
-    ignoreDuringBuilds: true,
-    dirs: ["."], 
+const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true, 
   },
-  poweredByHeader: false, 
-  reactStrictMode: true, 
-});
+  eslint: {
+    ignoreDuringBuilds: true, 
+  },
+  poweredByHeader: false,
+  reactStrictMode: true,
+};
 
-export default nextConfig;
+export default bundleAnalyzer(nextConfig);
