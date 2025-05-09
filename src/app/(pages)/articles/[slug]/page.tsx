@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
 
 export type BlogCardProps = {
-    slug: string;
-    category: string;
-    date: string;
-    title: string;
-    description: string;
-    content?: string;
-  };
-  
+  slug: string;
+  category: string;
+  date: string;
+  title: string;
+  description: string;
+  content?: string;
+};
 
 const blogData: BlogCardProps[] = [
   {
@@ -37,25 +36,23 @@ const blogData: BlogCardProps[] = [
   },
 ];
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+interface PageProps {
+  params: { slug: string };
+}
 
-export default function BlogPost({ params }: Props) {
+export default function BlogPost({ params }: PageProps) {
   const post = blogData.find((item) => item.slug === params.slug);
 
   if (!post) return notFound();
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
-      <p className="text-sm text-gray-500 mb-2">{post.category} • {post.date}</p>
+      <p className="text-sm text-gray-500 mb-2">
+        {post.category} • {post.date}
+      </p>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-lg text-gray-700 mb-8">{post.description}</p>
-      <div className="text-gray-800 leading-relaxed">
-        {post.content}
-      </div>
+      <div className="text-gray-800 leading-relaxed">{post.content}</div>
     </main>
   );
 }
