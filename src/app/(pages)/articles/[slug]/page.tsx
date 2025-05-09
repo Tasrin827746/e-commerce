@@ -1,3 +1,5 @@
+
+
 import { notFound } from "next/navigation";
 
 export type BlogCardProps = {
@@ -37,7 +39,9 @@ const blogData: BlogCardProps[] = [
 ];
 
 interface PageProps {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 }
 
 export default function BlogPost({ params }: PageProps) {

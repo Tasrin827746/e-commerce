@@ -1,5 +1,14 @@
 import Link from "next/link";
-import { BlogCardProps } from "@/types/blog";
+
+export type BlogCardProps = {
+    slug: string;
+    category: string;
+    date: string;
+    title: string;
+    description: string;
+    content?: string;
+  };
+
 
 const BlogCard: React.FC<BlogCardProps> = ({ slug, category, date, title, description }) => {
   return (
